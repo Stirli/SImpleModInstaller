@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="BackgroundColor"           A="255" R="255" G="211" B="0"/>
+    <Color x:Key="BackgroundColorDark"           A="255" R="204" G="169" B="0"/>
+    <Color x:Key="BackgroundColorInactive"   A="255" R="128" G="128" B="128"/>
+    <Color x:Key="BackgroundColorHover"      A="255" R="0" G="0" B="0"/>
+
+    <Color x:Key="BorderColor"                 A="255" R="0" G="0" B="0"/>
+    <Color x:Key="BorderColorInactive"         A="255" R="0" G="0" B="0"/>
+    <Color x:Key="BorderColorHover"            A="255" R="255" G="211" B="0"/>
+
+    <Color x:Key="TextColor"                 A="255" R="0" G="0" B="0"/>
+    <Color x:Key="TextColorInactive"         A="255" R="0" G="0" B="0"/>
+    <Color x:Key="TextColorHover"            A="255" R="255" G="211" B="0"/>
+
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{DynamicResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="ForegroundBrush" Color="{DynamicResource TextColor}"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource TextColor}"/>
+
+    <Thickness x:Key="BorderThickness" Bottom="2" Left="4" Right="2" Top="2"/>
+
+</ResourceDictionary>
