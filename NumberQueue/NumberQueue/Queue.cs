@@ -1,16 +1,28 @@
 ﻿using System;
+using System.Linq;
 
 namespace NumberQueue
 {
     public class Queue<Type>
     {
+        private Type[] _buffer;
+        private int _first;
+        private int _last;
+        private readonly int _bufferSize;
+
         /// <summary>
         /// Creates empty queue with buffer
         /// </summary>
         /// <param name="bufferSize">Initital size of stack buffer</param>
         public Queue(int bufferSize = 8)
         {
-            throw new NotImplementedException();
+            if (bufferSize < 1)
+            {
+                throw new ArgumentException("bufferSize must be above Zero", nameof(bufferSize));
+            }
+
+            _buffer = new Type[bufferSize];
+            _bufferSize = bufferSize;
         }
 
         /// <summary>
@@ -19,7 +31,21 @@ namespace NumberQueue
         /// <param name="bufferSize">Initital size of stack buffer</param>
         public Queue(Type[] data, int bufferSize = 8)
         {
-            throw new NotImplementedException();
+            if (bufferSize < 1)
+            {
+                throw new ArgumentException("bufferSize must be above Zero", nameof(bufferSize));
+            }
+
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            int size = data.Length + bufferSize;
+            _buffer = new Type[size];
+            Array.Copy(data, _buffer, data.Length);
+            _bufferSize = bufferSize;
+            _last = data.Length;
         }
 
         /// <summary>
@@ -29,18 +55,7 @@ namespace NumberQueue
         {
             get
             {
-                throw new NotImplementedException();
-            }
-        }
-
-        /// <summary>
-        /// Current size of buffer
-        /// </summary>
-        public int BufferSize
-        {
-            get
-            {
-                throw new NotImplementedException();
+                return _last - _first;
             }
         }
 
@@ -49,7 +64,12 @@ namespace NumberQueue
         /// </summary>
         public void Enqueue(Type element)
         {
-            throw new NotImplementedException();
+            if (_last >= _buffer.Length)
+            {
+                Extend();
+            }
+
+            _buffer[_last++] = element;
         }
 
         /// <summary>
@@ -57,7 +77,12 @@ namespace NumberQueue
         /// </summary>
         public Type Dequeue()
         {
-            throw new NotImplementedException();
+            if (Count == 0)
+            {
+                throw new InvalidOperationException("Queue is empty");
+            }
+
+            return _buffer[_first++];
         }
 
         /// <summary>
@@ -65,17 +90,22 @@ namespace NumberQueue
         /// </summary>
         public Type Peek()
         {
-            throw new NotImplementedException();
+            return _buffer[_first];
         }
 
         public bool Contains(Type searchingElement)
         {
-            throw new NotImplementedException();
+            return _buffer.Skip(_first).Take(Count).Contains(searchingElement);
         }
 
         private void Extend()
         {
-            throw new NotImplementedException();
+            var count = Count;
+            var newBuffer = new Type[count + _bufferSize];
+            Array.Copy(_buffer, _first, newBuffer, 0, count);
+            _buffer = newBuffer;
+            _first = 0;
+            _last = count;
         }
     }
 }
